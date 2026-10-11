@@ -1,0 +1,132 @@
+/* Site navigation (replaces the Google Sites nav, whose scripts don't run off Google's servers) */
+
+/* Hide the old Google Sites header bar */
+#atIdViewHeader .BbxBP { display: none !important; }
+
+.abi-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  font-family: "Open Sans", Arial, sans-serif;
+  box-sizing: border-box;
+}
+.abi-nav *, .abi-nav *::before, .abi-nav *::after { box-sizing: border-box; }
+
+.abi-nav__logo img { display: block; width: 48px; height: 48px; border-radius: 50%; }
+
+.abi-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.abi-nav__menu li { position: relative; list-style: none; }
+.abi-nav__menu a {
+  display: block;
+  padding: 10px 14px;
+  color: #212121;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 6px;
+}
+.abi-nav__menu a:hover,
+.abi-nav__menu a:focus-visible { background: #e8f5e9; color: #1b5e20; }
+.abi-nav__menu a[aria-current="page"] { color: #2e7d32; font-weight: 600; }
+
+/* Services dropdown */
+.abi-nav__sub-toggle {
+  border: 0;
+  background: none;
+  padding: 4px;
+  margin-left: -10px;
+  cursor: pointer;
+  color: #212121;
+  font-size: 12px;
+  line-height: 1;
+}
+.abi-nav__has-sub { display: flex; align-items: center; flex-wrap: wrap; }
+.abi-nav__sub {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 210px;
+  margin: 0;
+  padding: 6px 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+.abi-nav__sub a { border-radius: 0; padding: 10px 18px; }
+.abi-nav__has-sub:hover > .abi-nav__sub,
+.abi-nav__has-sub:focus-within > .abi-nav__sub,
+.abi-nav__has-sub.is-open > .abi-nav__sub { display: block; }
+
+/* Hamburger button (mobile only) */
+.abi-nav__burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 10px;
+}
+.abi-nav__burger span {
+  display: block;
+  height: 2px;
+  margin: 5px 0;
+  background: #212121;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.abi-nav.is-open .abi-nav__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.abi-nav.is-open .abi-nav__burger span:nth-child(2) { opacity: 0; }
+.abi-nav.is-open .abi-nav__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 800px) {
+  .abi-nav { padding: 0 12px; }
+  .abi-nav__burger { display: block; }
+  .abi-nav__menu {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 0;
+    background: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+  .abi-nav.is-open .abi-nav__menu { display: flex; }
+  .abi-nav__menu a { padding: 14px 24px; border-radius: 0; }
+  .abi-nav__has-sub > a { flex: 1; }
+  .abi-nav__sub-toggle { margin: 0 16px 0 0; padding: 12px; font-size: 14px; }
+  .abi-nav__sub {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    background: #f5f5f5;
+  }
+  /* On phones the submenu opens only via its toggle, not hover */
+  .abi-nav__has-sub:hover > .abi-nav__sub,
+  .abi-nav__has-sub:focus-within > .abi-nav__sub { display: none; }
+  .abi-nav__has-sub.is-open > .abi-nav__sub { display: block; }
+  .abi-nav__sub a { padding-left: 44px; }
+}
